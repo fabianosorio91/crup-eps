@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <title>Afiliados</title>
+</head>
+
+<body onload="mostrarNav('navAfiliados'), mostrarCitas()">
+    <header id="navAfiliados"></header>
+
+    <div class="row "
+    style="background-color:  rgba(17, 128, 122, 0.747) ; width: 40%; margin-left: 20%; margin-top: 4%; display: none;" id="divFormAfiliados">
+    <div class="col-12">
+        <form action="" id="formAfiliados">
+            <div class="col-4 d-flex justify-content-center" style="display: none;">
+                <input type="text" style="display: none;" value=""  id="inputIdAfiliado">
+              </div>
+
+            <div class="row g-3 align-items-center mt-2">
+                <div class="col-4 d-flex justify-content-center">
+                    <label for="" class="col-form-label">Tipo Doc</label>
+                  </div>
+                  <div class="col-sm-6 ">
+                    <select id="tipoId" class="col-6 col-form-label form-select">
+                        <option selected disabled>Seleccione una opcion</option>
+                        <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
+                        <option value="Cedula de Extrangeria">Cedula de Extrangeria</option>
+                        <option value="Targeta de Identidad">Targeta de Identidad</option>
+                        <option value="Registro Civil">Registro Civil</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                  </div>
+            </div>
+            
+            
+            <div class="row g-3 align-items-center mt-2">
+                <div class="col-4 d-flex justify-content-center">
+                    <label for="" class="col-form-label">Numero</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="number" placeholder="Numero" class="form-control" id="numeroDoc" maxlength="50">
+                  </div>                 
+            </div>
+            
+            <div class="row g-3 align-items-center mt-2">
+                <div class="col-4 d-flex justify-content-center">
+                    <label for="" class="col-form-label">Paciente</label>
+                  </div>
+                  <div class="col-sm-6 ">
+                    <input type="text" class="form-control" id="paciente"  placeholder="Paciente" maxlength="30">
+                  </div>
+            </div>
+
+
+            <div class="row g-3 align-items-center mt-2">
+                <div class="col-4 d-flex justify-content-center">
+                    <label for="" class="col-form-label">Fecha y hora</label>
+                  </div>
+                  <div class="col-sm-6 ">
+                    <input type="datetime-local" class="form-control" id="fechaHora">
+                  </div>
+            </div>
+            <div class="row g-3 align-items-center mt-2">
+                <div class="col-4 d-flex justify-content-center">
+                    <label for="" class="col-form-label">Especialidad</label>
+                  </div>
+                  <div class="col-sm-6 ">
+                    <select  id="especialidad" class="col-3 col-form-label form-select">
+                        <option disabled selected>Seleccione una especilidad</option>
+                        <option value="Medico General">Médico General</option>
+                        <option value="Oftamología">Oftamología</option>
+                        <option value="Pediatría">Pediatría</option>
+                        <option value="Ginecologia">Ginecología</option>
+                        <option value="Odontologia">Odontologia</option>
+                    </select>
+                  </div>
+            </div>
+            <div class="form-group row col-12 mt-3 d-flex justify-content-center">
+                <button type="button" class="btn" style="width: 20%; display: none; background-color: rgba(94, 148, 202, 0.596);"  id="btnEditarCita" onclick="editarCitas()">Editar</button>
+                <button type="button" class="btn" style="width: 20%; background-color: rgba(25, 187, 152, 0.336); margin-left: 20%;" onclick="crearCita()" id="btnCrearCita">Registrar</button>
+                <button type="reset" class="btn  ms-2" style="width: 20%; background-color: rgba(133, 46, 46, 0.733);" onclick="cerrarFormAfiliados()">Cancelar</button>
+            </div>
+            <br>
+
+        </form>
+    </div>
+</div>
+
+
+
+<div class="container mt-5" id="divTablaAfiliados">
+    <div  class="d-flex justify-content-center">
+        <button type="reset" class="btn btn-success ms-2" style="width: 20%;" onclick="abrirFormAfiliados()">Crear Cita</button>
+    </div>
+    <table id="tablaAfiliados" class="table  table-sm"  style="background-color:  rgba(17, 128, 122, 0.377)">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo ID</th>
+                <th>Nro. Id</th>
+                <th>Paciente</th>
+                <th>Fecha y hora</th>
+                <th>Especialidad</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider" id="bodyTablaAfiliados">
+        </tbody>
+    </table>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img style="width:10px"src="data:image/png;base64,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" class="rounded me-2" alt="...">
+        <strong class="me-auto">Afiliados</strong>
+        <small id="fecha-toast"></small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" id="body-toast">
+      </div>
+    </div>
+  </div>
+
+
+    <script src="./afiliados.js"></script>
+    <script src="./index.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tablaAfiliados').DataTable();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+        integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
